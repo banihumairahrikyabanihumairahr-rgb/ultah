@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Ultah Mamas Danu!</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        color: #fff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        padding: 20px;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        background: rgba(20, 20, 35, 0.85);
+        padding: 30px;
+        border-radius: 20px;
+        border: 3px solid #e62429;
+        box-shadow:
+          0 0 25px rgba(230, 36, 41, 0.6),
+          0 0 15px rgba(0, 119, 255, 0.5);
+        max-width: 550px;
+        width: 90%;
+      }
+
+      .logo-container {
+        width: 100%;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 120px;
+      }
+
+      .luffy-logo {
+        max-width: 150px;
+        max-height: 140px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(230, 36, 41, 0.8));
+      }
+
+      h1 {
+        color: #e62429;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px #ffe600;
+        margin-bottom: 5px;
+        line-height: 1.2;
+      }
+
+      h2 {
+        color: #3b91f3;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+      }
+
+      .interactive-area {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        margin: 30px 0 15px;
+        min-height: 250px;
+      }
+
+      /* KUE */
+      .cake-container {
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s;
+      }
+
+      .cake-container:hover {
+        transform: scale(1.05);
+      }
+
+      .cake {
+        width: 100px;
+        height: 60px;
+        background: #ff0004;
+        border-radius: 10px 10px 0 0;
+        position: relative;
+        border: 3px solid #000;
+        border-bottom: none;
+      }
+
+      .cake::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        height: 15px;
+        background: #b3ff50;
+      }
+
+      .candle {
+        width: 10px;
+        height: 30px;
+        background: repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 5px,
+          #e62429 5px,
+          #e62429 10px
+        );
+        position: absolute;
+        top: -30px;
+        left: 45px;
+        border: 1.5px solid #000;
+      }
+
+      .flame {
+        width: 12px;
+        height: 18px;
+        background: #ffcc00;
+        border-radius: 50% 50% 20% 20%;
+        position: absolute;
+        top: -18px;
+        left: -2px;
+        box-shadow:
+          0 0 10px #ffcc00,
+          0 0 20px #ff3300;
+        animation: flicker 0.6s infinite alternate;
+      }
+
+      .flame.off {
+        display: none;
+      }
+
+      @keyframes flicker {
+        0% {
+          transform: scale(1) rotate(-2deg);
+        }
+        100% {
+          transform: scale(1.1) rotate(2deg);
+        }
+      }
+
+      /* KADO & 3 FOTO */
+      .gift-container {
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s;
+      }
+
+      .gift-container:hover {
+        transform: scale(1.05);
+      }
+
+      .gift-photos-wrapper {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* FOTO TANPA BORDER */
+      .gift-photo {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transform: scale(0);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .gift-container.open .gift-photos-wrapper {
+        z-index: 5;
+      }
+
+      .gift-container.open .gift-photo {
+        transform: translateY(-80px) scale(1);
+      }
+
+      .gift-container.open .gift-photo:nth-child(1) {
+        transform: translateY(-80px) rotate(-6deg) scale(1);
+      }
+      .gift-container.open .gift-photo:nth-child(2) {
+        transform: translateY(-90px) rotate(0deg) scale(1.05);
+      }
+      .gift-container.open .gift-photo:nth-child(3) {
+        transform: translateY(-80px) rotate(6deg) scale(1);
+      }
+
+      .gift-box {
+        width: 90px;
+        height: 80px;
+        background: #e62429;
+        border: 3px solid #000;
+        position: relative;
+        z-index: 3;
+      }
+
+      .gift-ribbon-v {
+        position: absolute;
+        left: 37px;
+        width: 16px;
+        height: 100%;
+        background: #0077ff;
+      }
+
+      .gift-lid {
+        position: absolute;
+        top: -15px;
+        left: -5px;
+        width: 100px;
+        height: 20px;
+        background: #e62429;
+        border: 3px solid #000;
+        transition: transform 0.5s;
+        z-index: 4;
+      }
+
+      .gift-container.open .gift-lid {
+        transform: translateY(-80px) rotate(-20deg);
+      }
+
+      .instructions {
+        font-size: 0.85rem;
+        color: #aaa;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="container">
+      <div class="logo-container">
+        <!-- GAMBAR LOGO LUFFY -->
+        <img id="logoImg" src="luffy.jpg" class="luffy-logo" alt="Logo Luffy" />
+      </div>
+
+      <h1>Happy Birthday!<br />Mamas Danoo</h1>
+      <h2>Selamat Ulang Tahun ke-19! 🏴‍☠️</h2>
+      <div
+        style="
+          background-image:
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url(&quot;background.png&quot;);
+          background-size: cover;
+          background-position: center;
+          color: #ffffff;
+          padding: 20px;
+          border-radius: 12px;
+          text-align: center;
+        "
+      >
+        <p>
+          selamat ulang tahun ya mas danu, semoga segala yang lagi kau usahakan
+          terwujud serta diberikan segala yang terbaik. senang bisa mengenalmu
+          dan sangan mensyukuri hari kelahiranmu. terus lah menjadi pria yang
+          kuat, baik, soft, sabar, dan inget selalu sama akooo. sekali lagi
+          selamat hari kelahiran mu yaaa,,, SEMANGAT TERUS YAAA may happiness
+          always find you! enjoy your special day!!! 💌💌💌💌💌💌
+          🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶 🫰🫰🫰🫰🫰🫰🫰🫰🫰🫰 💖💖💖💖💖💖💖💖
+        </p>
+      </div>
+
+      <div class="interactive-area">
+        <!-- Kue -->
+        <div class="cake-container" onclick="toggleCandle()">
+          <div class="candle">
+            <div class="flame" id="flame"></div>
+          </div>
+          <div class="cake"></div>
+        </div>
+
+        <!-- Kado Interaktif (3 Foto) -->
+        <div class="gift-container" id="gift" onclick="openGift()">
+          <div class="gift-photos-wrapper">
+            <!-- 3 FOTO KEJUTAN DI DALAM KADO -->
+            <img
+              id="giftImg1"
+              src="foto1.jpg"
+              alt="Foto 1"
+              class="gift-photo"
+            />
+            <img
+              id="giftImg2"
+              src="foto2.jpg"
+              alt="Foto 2"
+              class="gift-photo"
+            />
+            <img
+              id="giftImg3"
+              src="foto3.jpg"
+              alt="Foto 3"
+              class="gift-photo"
+            />
+          </div>
+          <div class="gift-lid"></div>
+          <div class="gift-box">
+            <div class="gift-ribbon-v"></div>
+          </div>
+        </div>
+      </div>
+      <audio controls autoplay loop>
+        <source src="lagu.mp3" type="audio/mpeg" />
+      </audio>
+      <p class="instructions">
+        Klik kue untuk tiup lilinnyaaa | Klik kado ada kejutan!
+      </p>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.size = Math.random() * 8 + 4;
+          this.speedX = (Math.random() - 0.5) * 10;
+          this.speedY = (Math.random() - 0.5) * 10 - 3;
+          const colors = [
+            "#e62429",
+            "#0077ff",
+            "#ffffff",
+            "#000000",
+            "#ffcc00",
+          ];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.gravity = 0.15;
+          this.alpha = 1;
+        }
+
+        update() {
+          this.speedY += this.gravity;
+          this.x += this.speedX;
+          this.y += this.speedY;
+          this.alpha -= 0.01;
+        }
+
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      function createExplosion(x, y) {
+        for (let i = 0; i < 70; i++) {
+          particles.push(new Particle(x, y));
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+          if (particles[i].alpha <= 0) {
+            particles.splice(i, 1);
+            i--;
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      function toggleCandle() {
+        const flame = document.getElementById("flame");
+        flame.classList.toggle("off");
+        const rect = flame.getBoundingClientRect();
+        createExplosion(rect.left + 5, rect.top + 5);
+      }
+
+      function openGift() {
+        const gift = document.getElementById("gift");
+        gift.classList.toggle("open");
+        const rect = gift.getBoundingClientRect();
+        createExplosion(rect.left + rect.width / 2, rect.top);
+      }
+
+      const audio = document.getElementById("myAudio");
+      const musicBtn = document.getElementById("musicBtn");
+
+      function toggleMusic() {
+        if (audio.paused) {
+          audio.play();
+          musicBtn.innerText = "🔊 Pause Musik";
+        } else {
+          audio.pause();
+          musicBtn.innerText = "🎵 Play Musik";
+        }
+      }
+
+      // Otomatis putar lagu saat pengguna melakukan klik pertama di mana saja
+      document.body.addEventListener(
+        "click",
+        function () {
+          if (audio.paused) {
+            audio
+              .play()
+              .then(() => {
+                musicBtn.innerText = "🔊 Pause Musik";
+              })
+              .catch((err) => console.log("Autoplay ditahan browser"));
+          }
+        },
+        { once: true },
+      );
+    </script>
+  </body>
+</html>
