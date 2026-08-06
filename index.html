@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Selamat Ultah Mamas Danu!</title>
     <style>
-      
+      * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -21,6 +21,7 @@
         justify-content: center;
         overflow-x: hidden;
         padding: 20px;
+        background-color: #0b0c10;
       }
 
       canvas {
@@ -44,13 +45,14 @@
         box-shadow:
           0 0 25px rgba(230, 36, 41, 0.6),
           0 0 15px rgba(0, 119, 255, 0.5);
-        max-width: 550px;
+        max-width: 600px;
         width: 90%;
+        margin: 0 auto;
       }
 
       .logo-container {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,10 +60,11 @@
       }
 
       .luffy-logo {
-        max-width: 150px;
+        max-width: 140px;
         max-height: 140px;
         height: auto;
         object-fit: contain;
+        border-radius: 50%;
         filter: drop-shadow(0 0 10px rgba(230, 36, 41, 0.8));
       }
 
@@ -77,16 +80,31 @@
 
       h2 {
         color: #3b91f3;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         margin-bottom: 20px;
       }
 
+      .text-card {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.png');
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* KANTONG RUANG UNTUK FOTO TERBANG KADO */
       .interactive-area {
         display: flex;
         justify-content: space-around;
         align-items: flex-end;
-        margin: 30px 0 15px;
-        min-height: 250px;
+        margin: 80px 0 20px; /* Jarak atas diperbesar agar foto kado tidak menabrak teks */
+        min-height: 180px;
       }
 
       /* KUE */
@@ -185,10 +203,9 @@
         pointer-events: none;
       }
 
-      /* FOTO TANPA BORDER */
       .gift-photo {
-        width: 75px;
-        height: 75px;
+        width: 70px;
+        height: 70px;
         object-fit: cover;
         border-radius: 8px;
         border: none;
@@ -201,18 +218,14 @@
         z-index: 5;
       }
 
-      .gift-container.open .gift-photo {
-        transform: translateY(-80px) scale(1);
-      }
-
       .gift-container.open .gift-photo:nth-child(1) {
-        transform: translateY(-80px) rotate(-6deg) scale(1);
+        transform: translateY(-75px) rotate(-12deg) scale(1);
       }
       .gift-container.open .gift-photo:nth-child(2) {
-        transform: translateY(-90px) rotate(0deg) scale(1.05);
+        transform: translateY(-85px) rotate(0deg) scale(1.08);
       }
       .gift-container.open .gift-photo:nth-child(3) {
-        transform: translateY(-80px) rotate(6deg) scale(1);
+        transform: translateY(-75px) rotate(12deg) scale(1);
       }
 
       .gift-box {
@@ -245,18 +258,31 @@
       }
 
       .gift-container.open .gift-lid {
-        transform: translateY(-80px) rotate(-20deg);
+        transform: translateY(-70px) rotate(-25deg);
+      }
+
+      .btn-music {
+        background: #e62429;
+        color: #fff;
+        border: 2px solid #000;
+        padding: 8px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.85rem;
+        margin-top: 15px;
+        transition: transform 0.2s, background 0.2s;
+      }
+
+      .btn-music:hover {
+        background: #ff3338;
+        transform: scale(1.05);
       }
 
       .instructions {
         font-size: 0.85rem;
         color: #aaa;
-        margin-top: 15px;
-      }
-      .container {
-        max-width: 600px; 
-        width: 90%;       
-        margin: 0 auto;  
+        margin-top: 10px;
       }
     </style>
   </head>
@@ -265,15 +291,15 @@
 
     <div class="container">
       <div class="logo-container">
-        <!-- GAMBAR LOGO LUFFY -->
         <img id="logoImg" src="luffy.jpg" class="luffy-logo" alt="Logo Luffy" />
       </div>
 
       <h1>ᕼᗩᑭᑭY ᗷIᖇTᕼᗞᗩY<br />Mamas Danoo</h1>
       <h2>Selamat Ulang Tahun ke-19! 👒⚔☠️ 𓆝 ⋆｡𖦹°‧🫧🍖🏴‍☠️🐚𓇼 ˖°</h2>
-    <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('background.png'); background-size: cover; background-position: center; color: #ffffff; padding: 20px; border-radius: 12px; text-align: center; font-size: 1rem; line-height: 1.6; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);">
-  <p>selamat ulang tahun ya mas danu, semoga segala yang lagi kau usahakan terwujud serta diberikan segala yang terbaik. senang bisa mengenalmu dan sangan mensyukuri hari kelahiranmu. terus lah menjadi pria yang kuat, baik, soft, sabar, dan inget selalu sama akooo. sekali lagi selamat hari kelahiran mu yaaa,,, SEMANGAT TERUS YAAA may happiness always find you! enjoy your special day!!! 💟💟💟💟💟💟 🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶 🫰🫰🫰🫰🫰🫰🫰🫰 💖💖💖💖💖💖💖💖 ✮✮✮✎ᝰ.ᐟ⋆⑅˚₊✮✮✮   𓆉⋆｡˚⋆❀ 🐚🫧𓇼 ˖° CAMAT ULTAH YAAKKKKK ᶠᶸᶜᵏᵧₒᵤ!  ⋆✴︎˚｡⋆ 🎂 ༘⋆ </p>
-</div>
+
+      <div class="text-card">
+        <p>selamat ulang tahun ya mas danu, semoga segala yang lagi kau usahakan terwujud serta diberikan segala yang terbaik. senang bisa mengenalmu dan sangan mensyukuri hari kelahiranmu. terus lah menjadi pria yang kuat, baik, soft, sabar, dan inget selalu sama akooo. sekali lagi selamat hari kelahiran mu yaaa,,, SEMANGAT TERUS YAAA may happiness always find you! enjoy your special day!!! 💟💟💟💟💟💟 🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶🫶 🫰🫰🫰🫰🫰🫰🫰🫰 💖💖💖💖💖💖💖💖 ✮✮✮✎ᝰ.ᐟ⋆⑅˚₊✮✮✮ 𓆉⋆｡˚⋆❀ 🐚🫧𓇼 ˖° CAMAT ULTAH YAAKKKKK ᶠᶸᶜᵏᵧₒᵤ! ⋆✴︎˚｡⋆ 🎂 ༘⋆</p>
+      </div>
 
       <div class="interactive-area">
         <!-- Kue -->
@@ -287,25 +313,9 @@
         <!-- Kado Interaktif (3 Foto) -->
         <div class="gift-container" id="gift" onclick="openGift()">
           <div class="gift-photos-wrapper">
-            <!-- 3 FOTO KEJUTAN DI DALAM KADO -->
-            <img
-              id="giftImg1"
-              src="foto1.jpg"
-              alt="Foto 1"
-              class="gift-photo"
-            />
-            <img
-              id="giftImg2"
-              src="foto2.jpg"
-              alt="Foto 2"
-              class="gift-photo"
-            />
-            <img
-              id="giftImg3"
-              src="foto3.jpg"
-              alt="Foto 3"
-              class="gift-photo"
-            />
+            <img id="giftImg1" src="foto1.jpg" alt="Foto 1" class="gift-photo" />
+            <img id="giftImg2" src="foto2.jpg" alt="Foto 2" class="gift-photo" />
+            <img id="giftImg3" src="foto3.jpg" alt="Foto 3" class="gift-photo" />
           </div>
           <div class="gift-lid"></div>
           <div class="gift-box">
@@ -313,9 +323,13 @@
           </div>
         </div>
       </div>
-      <audio controls autoplay loop>
+
+      <audio id="myAudio" loop>
         <source src="lagu.mp3" type="audio/mpeg" />
       </audio>
+
+      <button id="musicBtn" class="btn-music" onclick="toggleMusic()">🎵 Play Musik</button>
+
       <p class="instructions">
         Klik kue untuk tiup lilinnyaaa | Klik kado ada kejutan!
       </p>
@@ -417,7 +431,6 @@
         }
       }
 
-      // Otomatis putar lagu saat pengguna melakukan klik pertama di mana saja
       document.body.addEventListener(
         "click",
         function () {
